@@ -3,7 +3,7 @@ import psycopg2
 from typing import List
 from pydantic import BaseModel
 import uvicorn
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 import gzip
 import io
@@ -64,9 +64,11 @@ async def check_status():
 
 
 @app.post("/videos", status_code=201)
-async def add_video(file: UploadFile):
+async def add_video(file: UploadFile, response: Response):
     video_name = file.filename.split('.')[0]
     Thread(target=upload_and_add_video, args=(file, video_name)).start()
+    response.headers["Location"] = "/success"
+    response.status_code = 303
 
 
 if __name__ == "__main__":

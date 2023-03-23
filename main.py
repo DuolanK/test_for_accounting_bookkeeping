@@ -5,7 +5,7 @@ from fastapi.templating import Jinja2Templates
 from typing import List
 
 
-BUCKET_NAME = "avdcompany"
+BUCKET_NAME = "your_bucket"
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -19,8 +19,8 @@ def home(request: Request):
 @app.post("/upload-files")
 async def create_upload_files(request: Request, files: List[UploadFile] = File(...)):
     s3 = boto3.client('s3',
-                      aws_access_key_id='YCAJEIvsReyJ218Z4X-FRrYRT',
-                      aws_secret_access_key='YCPHYmyFlcyFCkjRuXOVSVcf0ii_kVlhxpmdd0fF',
+                      aws_access_key_id='id',
+                      aws_secret_access_key='key',
                       region_name='ru-central1',
                       endpoint_url='https://s3.yandexcloud.net')
     for file in files:

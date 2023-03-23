@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from typing import List
-from multiprocessing.pool import ThreadPool
+
 
 BUCKET_NAME = "avdcompany"
 
@@ -15,7 +15,6 @@ templates = Jinja2Templates(directory="templates")
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-filenames = ['1', '2', '3', '4', '5']
 
 @app.post("/upload-files")
 async def create_upload_files(request: Request, files: List[UploadFile] = File(...)):
@@ -31,11 +30,8 @@ async def create_upload_files(request: Request, files: List[UploadFile] = File(.
 
 
 
-    # return {"Result": "OK", "filenames": [file.filename for file in files]}
-    return templates.TemplateResponse("index.html", {"request": request})
 
-pool = ThreadPool(processes=10)
-pool.map(create_upload_files, filenames)
+
 
 
 

@@ -19,8 +19,8 @@ def home(request: Request):
 @app.post("/upload-files")
 async def create_upload_files(request: Request, files: List[UploadFile] = File(...)):
     s3 = boto3.client('s3',
-                      aws_access_key_id='id',
-                      aws_secret_access_key='key',
+                      aws_access_key_id='YCAJEIvsReyJ218Z4X-FRrYRT', #данный ключ удален, здесь для наглядности, в проде его нужно поместить в .env файл
+                      aws_secret_access_key='YCPHYmyFlcyFCkjRuXOVSVcf0ii_kVlhxpmdd0fF',
                       region_name='ru-central1',
                       endpoint_url='https://s3.yandexcloud.net')
     for file in files:
